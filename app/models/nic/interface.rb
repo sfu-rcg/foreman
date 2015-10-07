@@ -93,7 +93,7 @@ module Nic
       return if name.empty?
       if domain.nil? && name.match(/\./) && !changed_attributes['domain_id'].present?
         # try to assign the domain automatically based on our existing domains from the host FQDN
-        self.domain = Domain.all.select{|d| name.match(/#{d.name}\Z/)}.first rescue nil
+        self.domain = Domain.all.find { |d| d.name == name.split('.', 2).last }
       elsif persisted? && changed_attributes['domain_id'].present?
         # if we've just updated the domain name, strip off the old one
         old_domain = Domain.find(changed_attributes["domain_id"])
