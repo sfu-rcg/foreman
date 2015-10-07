@@ -14,7 +14,7 @@
                       :'data-placement' => "top"
               ),
               :class => :interface_identifier %>
-<%= text_f f, :name, :label => _("DNS name"), :value => f.object.shortname,
+<%= text_f f, :name, :label => _("DNS name"), :value => f.object.name,
               :help_inline => _("Primary interface's DNS name and domain define host's FQDN"),
               :class => :interface_name %>
 <% if SETTINGS[:unattended] %>
