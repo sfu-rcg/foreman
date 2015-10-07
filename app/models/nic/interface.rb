@@ -92,8 +92,8 @@ module Nic
       # it and let the validations to produce an error
       return if name.empty?
       if domain.nil? && name.match(/\./) && !changed_attributes['domain_id'].present?
-        # try to assign the domain automatically based on our existing domains from the host FQDN
-        self.domain = Domain.all.find { |d| d.name == name.split('.', 2).last }
+        # Use the fqdn to derive the domain or create it as required
+        self.domain = Domain.find_or_create_by_name(name.split('.', 2).last)
       elsif persisted? && changed_attributes['domain_id'].present?
         # if we've just updated the domain name, strip off the old one
         old_domain = Domain.find(changed_attributes["domain_id"])
