@@ -156,7 +156,7 @@ class Host::Managed < Host::Base
     validate :check_if_provision_method_changed, :on => :update, :if => Proc.new { |host| host.managed }
   else
     def fqdn
-      facts['fqdn'] || name
+      name
     end
 
     def compute?
