@@ -34,7 +34,14 @@ module Host
                                            :allow_blank => true,
                                            :message     => (_("Owner type needs to be one of the following: %s") % OWNER_TYPES.join(', ')) }
     validate :host_has_required_interfaces
-    validate :uniq_interfaces_identifiers
+    # This validation routine is worthless. Why? Users are not creating
+    # interfaces manually. Interfaces are being created by fact uploads,
+    # which AFAICT completely bypass any and all validation routines.
+    #
+    # I am commenting it out, so as to leave some breadcrumbs.
+    #
+    # bcw@sfu.ca, 2015-11-22
+    # validate :uniq_interfaces_identifiers
 
     default_scope lambda {
       where(taxonomy_conditions)
